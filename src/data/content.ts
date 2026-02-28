@@ -40,10 +40,10 @@ export const BRAND = {
   heroSubtitle: "Selling out shows. Breaking rules. Making you ugly laugh.",
   bio: "Honeybear Giggles isn't your typical stand-up. With a razor-sharp wit and a stage presence that fills arenas, Honeybear has become one of the most electrifying voices in comedy today. From sold-out theater tours to viral specials, the laughs never stop.",
   bioShort: "Comedian. Troublemaker. Professional giggle merchant.",
-  managerName: "Jordan Blake",
-  managerEmail: "management@honeybeargiggles.com",
-  agentName: "Casey Rivera",
-  agentEmail: "booking@honeybeargiggles.com",
+  managerName: "Steve Barry",
+  managerEmail: "ynwasd@gmail.com",
+  agentName: "Jemaine DuBarre",
+  agentEmail: "productimagepro@gmail.com",
   social: {
     instagram: "https://instagram.com/honeybeargiggles",
     tiktok: "https://tiktok.com/@honeybeargiggles",
@@ -59,7 +59,7 @@ export const ANNOUNCEMENT = {
 };
 
 export const TOUR_DATES: TourDate[] = [
-  { id: "1", date: "Mar 14", day: "Friday", city: "Austin, TX", venue: "Paramount Theatre", ticketUrl: "#", soldOut: false, month: "March" },
+  { id: "1", date: "Feb 28", day: "Saturday", city: "Austin, TX", venue: "Fatman Club", ticketUrl: "#", soldOut: false, month: "February" },
   { id: "2", date: "Mar 21", day: "Friday", city: "Denver, CO", venue: "Bellco Theatre", ticketUrl: "#", soldOut: false, month: "March" },
   { id: "3", date: "Mar 28", day: "Friday", city: "Nashville, TN", venue: "Ryman Auditorium", ticketUrl: "#", soldOut: false, month: "March" },
   { id: "4", date: "Apr 4", day: "Friday", city: "Chicago, IL", venue: "Chicago Theatre", ticketUrl: "#", soldOut: true, month: "April" },
