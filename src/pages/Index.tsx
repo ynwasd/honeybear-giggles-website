@@ -38,10 +38,10 @@ const Index = () => {
       </div>
 
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
+      <section className="relative min-h-screen flex items-end justify-center overflow-hidden pb-24 pt-24">
         <div className="absolute inset-0">
           <img src={heroBg} alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-accent/70" />
+          <div className="absolute inset-0 bg-accent/50" />
         </div>
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <motion.h1
