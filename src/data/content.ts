@@ -70,16 +70,17 @@ export const TOUR_DATES: TourDate[] = [
 ];
 
 export const MERCH_ITEMS: MerchItem[] = [
-  { id: "1", name: "Sweet Venom Tour Tee", price: 35, image: "", category: "Shirts", buyUrl: "#", badge: "New" },
-  { id: "2", name: "Honeybear Logo Hoodie", price: 65, image: "", category: "Hoodies", buyUrl: "#" },
-  { id: "3", name: "Giggles Dad Hat", price: 28, image: "", category: "Hats", buyUrl: "#" },
-  { id: "4", name: "Stinger Sticker Pack", price: 12, image: "", category: "Stickers", buyUrl: "#" },
-  { id: "5", name: "Neon Nights Crewneck", price: 55, image: "", category: "Hoodies", buyUrl: "#", badge: "Limited" },
-  { id: "6", name: "Mic Drop Poster", price: 20, image: "", category: "Posters", buyUrl: "#" },
+  { id: "1", name: "HoneyBear Retro Logo Tee", price: 44.95, image: "/honeybear-giggles-website/merch/honeybear-tee.png", category: "Shirts", buyUrl: "https://honeybear-giggles.printify.me/product/27086389", badge: "New" },
+  { id: "2", name: "Honeybear Logo Hoodie", price: 35.97, image: "/honeybear-giggles-website/merch/honeybear-hoodie.png", category: "Hoodies", buyUrl: "https://honeybear-giggles.printify.me/product/27086162" },
+  { id: "3", name: "Classic Cuffed Beanie (Embroidery)", price: 26.99, image: "/honeybear-giggles-website/merch/honeybear-beanie.png", category: "Hats", buyUrl: "https://honeybear-giggles.printify.me/product/27086443" },
+  { id: "4", name: "HoneyBear Embroidered Dad Cap", price: 33.43, image: "/honeybear-giggles-website/merch/honeybear-dad-cap.png", category: "Hats", buyUrl: "https://honeybear-giggles.printify.me/product/27086510" },
+  { id: "5", name: "Stinger Sticker Pack", price: 12, image: "", category: "Stickers", buyUrl: "#" },
+  { id: "6", name: "Neon Nights Crewneck", price: 55, image: "", category: "Hoodies", buyUrl: "#", badge: "Limited" },
+  { id: "7", name: "Mic Drop Poster", price: 20, image: "", category: "Posters", buyUrl: "#" },
 ];
 
 export const VIDEOS: Video[] = [
-  { id: "1", title: "Sweet Venom — Official Trailer", youtubeId: "dQw4w9WgXcQ", thumbnail: "" },
+  { id: "1", title: "Sweet Venom — Official Trailer", youtubeId: "8pArbo-QI-8", thumbnail: "" },
   { id: "2", title: "Live at The Beacon", youtubeId: "dQw4w9WgXcQ", thumbnail: "" },
   { id: "3", title: "Crowd Work Compilation", youtubeId: "dQw4w9WgXcQ", thumbnail: "" },
   { id: "4", title: "Podcast Appearance — Laugh Factory", youtubeId: "dQw4w9WgXcQ", thumbnail: "" },

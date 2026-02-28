@@ -222,7 +222,11 @@ const Index = () => {
                   className="group block"
                 >
                   <div className="aspect-square rounded-lg bg-accent-foreground/5 border border-accent-foreground/10 flex items-center justify-center relative overflow-hidden group-hover:border-primary/30 transition-all">
-                    <span className="font-display text-4xl text-accent-foreground/10">{item.category.toUpperCase()}</span>
+                    {item.image ? (
+                      <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="font-display text-4xl text-accent-foreground/10">{item.category.toUpperCase()}</span>
+                    )}
                     {item.badge && (
                       <span className="absolute top-3 right-3 bg-primary text-primary-foreground text-[10px] font-display tracking-widest px-2 py-0.5 rounded-full">
                         {item.badge}
