@@ -7,15 +7,58 @@ import { Footer } from "@/components/Footer";
 
 const EVENT_TYPES = ["Club", "Corporate", "Private Event", "Festival", "Other"];
 
+const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
+
 const BookingPage = () => {
   const [formData, setFormData] = useState({
     name: "", email: "", phone: "", eventType: "", eventDate: "", budget: "", message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setError(null);
+    setLoading(true);
+
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+    if (!accessKey) {
+      setError("Form is not configured. Please contact us directly.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch(WEB3FORMS_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `Booking Inquiry for HoneyBear from ${formData.name}`,
+          replyto: formData.email,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          eventType: formData.eventType,
+          eventDate: formData.eventDate,
+          budget: formData.budget,
+          message: formData.message,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitted(true);
+      } else {
+        setError(data.message || "Something went wrong. Please email us directly.");
+      }
+    } catch {
+      setError("Failed to send. Please email us directly at " + BRAND.agentEmail);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const inputClass = "w-full bg-accent-foreground/5 border border-accent-foreground/10 rounded-md px-4 py-3 text-sm text-accent-foreground placeholder:text-accent-foreground/30 focus:outline-none focus:ring-2 focus:ring-primary transition-colors";
@@ -54,6 +97,11 @@ const BookingPage = () => {
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-4">
+                    {error && (
+                      <div className="p-3 rounded-md bg-destructive/10 border border-destructive/20 text-destructive text-sm">
+                        {error}
+                      </div>
+                    )}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <input
                         type="text"
@@ -118,10 +166,17 @@ const BookingPage = () => {
                     />
                     <button
                       type="submit"
-                      className="w-full bg-primary text-primary-foreground py-3.5 rounded-md font-display tracking-widest text-sm hover:bg-primary/90 transition-all hover:scale-[1.02] flex items-center justify-center gap-2"
+                      disabled={loading}
+                      className="w-full bg-primary text-primary-foreground py-3.5 rounded-md font-display tracking-widest text-sm hover:bg-primary/90 transition-all hover:scale-[1.02] flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
                     >
-                      <Send className="w-4 h-4" />
-                      SEND INQUIRY
+                      {loading ? (
+                        <>Sending...</>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4" />
+                          SEND INQUIRY
+                        </>
+                      )}
                     </button>
                   </form>
                 )}

@@ -18,10 +18,56 @@ const fadeUp = {
   }),
 };
 
+const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
+
 const Index = () => {
   const [ticketsOpen, setTicketsOpen] = useState(false);
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterLoading, setNewsletterLoading] = useState(false);
+  const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
+  const [newsletterError, setNewsletterError] = useState<string | null>(null);
   const upcomingShows = TOUR_DATES.filter((d) => !d.soldOut).slice(0, 4);
   const featuredMerch = MERCH_ITEMS.slice(0, 3);
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setNewsletterError(null);
+    setNewsletterLoading(true);
+
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+    if (!accessKey) {
+      setNewsletterError("Newsletter signup is not configured.");
+      setNewsletterLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch(WEB3FORMS_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: "HONEYBEAR new email subscriber",
+          replyto: newsletterEmail,
+          email: newsletterEmail,
+          message: `New email subscriber: ${newsletterEmail}`,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setNewsletterSubmitted(true);
+        setNewsletterEmail("");
+      } else {
+        setNewsletterError(data.message || "Something went wrong. Please try again.");
+      }
+    } catch {
+      setNewsletterError("Failed to sign up. Please try again later.");
+    } finally {
+      setNewsletterLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -300,19 +346,30 @@ const Index = () => {
           <p className="text-muted-foreground mb-6 text-sm">
             Tour announcements, exclusive content, and behind-the-scenes nonsense. Straight to your inbox.
           </p>
-          <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 bg-muted border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-            <button
-              type="submit"
-              className="bg-primary text-primary-foreground px-6 py-3 rounded-md font-display tracking-widest text-sm hover:bg-primary/90 transition-all hover:scale-105"
-            >
-              SUBSCRIBE
-            </button>
-          </form>
+          {newsletterSubmitted ? (
+            <p className="text-primary font-display tracking-wider">Thanks! You're on the list.</p>
+          ) : (
+            <form className="flex flex-col gap-2" onSubmit={handleNewsletterSubmit}>
+              <div className="flex gap-2">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  required
+                  value={newsletterEmail}
+                  onChange={(e) => setNewsletterEmail(e.target.value)}
+                  className="flex-1 bg-muted border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+                <button
+                  type="submit"
+                  disabled={newsletterLoading}
+                  className="bg-primary text-primary-foreground px-6 py-3 rounded-md font-display tracking-widest text-sm hover:bg-primary/90 transition-all hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
+                >
+                  {newsletterLoading ? "..." : "SUBSCRIBE"}
+                </button>
+              </div>
+              {newsletterError && <p className="text-sm text-destructive">{newsletterError}</p>}
+            </form>
+          )}
         </div>
       </section>
 

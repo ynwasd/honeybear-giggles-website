@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, X } from "lucide-react";
-import { VIDEOS, PHOTO_PLACEHOLDERS } from "@/data/content";
+import { VIDEOS, MEDIA_PHOTOS } from "@/data/content";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
@@ -78,19 +78,20 @@ const MediaPage = () => {
           <div className="container-tight">
             <h2 className="font-display text-3xl tracking-widest text-secondary mb-6">PHOTOS</h2>
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-              {PHOTO_PLACEHOLDERS.map((p, i) => (
+              {MEDIA_PHOTOS.map((p, i) => (
                 <motion.button
                   key={p.id}
                   variants={fadeUp}
                   custom={i}
                   onClick={() => setLightboxIdx(i)}
-                  className={`rounded-lg overflow-hidden bg-accent-foreground/5 border border-accent-foreground/10 hover:border-primary/30 transition-all group card-glow ${
-                    i % 5 === 0 ? "row-span-2 aspect-[3/4]" : "aspect-square"
-                  }`}
+                  className="rounded-lg overflow-hidden bg-accent-foreground/5 border border-accent-foreground/10 hover:border-primary/30 transition-all group card-glow aspect-square"
                 >
-                  <div className="w-full h-full flex items-center justify-center text-accent-foreground/10 font-display text-2xl group-hover:text-primary/20 transition-colors">
-                    📸
-                  </div>
+                  <img
+                    src={p.src}
+                    alt={p.alt}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
                 </motion.button>
               ))}
             </motion.div>
@@ -111,10 +112,12 @@ const MediaPage = () => {
             <button className="absolute top-6 right-6 text-accent-foreground/60 hover:text-primary transition-colors" onClick={() => setLightboxIdx(null)}>
               <X className="w-8 h-8" />
             </button>
-            <div className="w-full max-w-2xl aspect-square bg-accent-foreground/5 rounded-lg flex items-center justify-center border border-accent-foreground/10">
-              <span className="font-display text-4xl text-accent-foreground/20">
-                PHOTO {lightboxIdx + 1}
-              </span>
+            <div className="w-full max-w-2xl aspect-square rounded-lg overflow-hidden border border-accent-foreground/10" onClick={(e) => e.stopPropagation()}>
+              <img
+                src={MEDIA_PHOTOS[lightboxIdx]?.src}
+                alt={MEDIA_PHOTOS[lightboxIdx]?.alt ?? ""}
+                className="w-full h-full object-contain"
+              />
             </div>
           </motion.div>
         )}

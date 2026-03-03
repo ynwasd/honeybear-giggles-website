@@ -95,7 +95,15 @@ export const PRESS_QUOTES: PressQuote[] = [
   { quote: "If you're not watching Honeybear, you're missing out.", source: "Complex" },
 ];
 
-export const PHOTO_PLACEHOLDERS = Array.from({ length: 12 }, (_, i) => ({
-  id: String(i + 1),
-  alt: `Honeybear Giggles photo ${i + 1}`,
-}));
+export interface MediaPhoto {
+  id: string;
+  src: string;
+  alt: string;
+}
+
+export const MEDIA_PHOTOS: MediaPhoto[] = [
+  { id: "1", src: "/media/photo1.png", alt: "Honeybear Giggles at Mic Drop mural" },
+  { id: "2", src: "/media/photo2.png", alt: "Honeybear Giggles at Mic Drop venue" },
+  { id: "3", src: "/media/photo3.png", alt: "Honeybear Giggles performing on stage" },
+  { id: "4", src: "/media/photo4.png", alt: "Honeybear Giggles in graffiti hallway" },
+];

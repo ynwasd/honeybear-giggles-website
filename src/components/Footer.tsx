@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Instagram, Youtube, Twitter, Mail } from "lucide-react";
 import { BRAND } from "@/data/content";
+
+const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
 
 const FOOTER_LINKS = [
   { label: "Tour Dates", path: "/tour" },
@@ -16,6 +19,51 @@ const SOCIAL_LINKS = [
 ];
 
 export function Footer() {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+    if (!accessKey) {
+      setError("Newsletter signup is not configured.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch(WEB3FORMS_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: "Honeybear New Email List Member",
+          replyto: email,
+          email,
+          message: `New email list signup: ${email}`,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitted(true);
+        setEmail("");
+      } else {
+        setError(data.message || "Something went wrong. Please try again.");
+      }
+    } catch {
+      setError("Failed to sign up. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <footer className="bg-accent text-accent-foreground">
       <div className="container-tight section-padding">
@@ -47,20 +95,31 @@ export function Footer() {
 
           {/* Newsletter + Social */}
           <div>
-            <h4 className="font-display text-lg tracking-wider text-accent-foreground/80 mb-4">STAY IN THE LOOP</h4>
-            <form className="flex gap-2 mb-6" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="email"
-                placeholder="Your email"
-                className="flex-1 bg-accent-foreground/5 border border-accent-foreground/10 rounded-md px-3 py-2 text-sm text-accent-foreground placeholder:text-accent-foreground/30 focus:outline-none focus:ring-1 focus:ring-primary"
-              />
-              <button
-                type="submit"
-                className="bg-primary text-primary-foreground px-4 py-2 rounded-md font-display tracking-wider text-sm hover:bg-primary/90 transition-colors"
-              >
-                JOIN
-              </button>
-            </form>
+            <h4 className="font-display text-lg tracking-wider text-accent-foreground/80 mb-4">DONT MISS THE NEXT SHOW</h4>
+            {submitted ? (
+              <p className="text-sm text-primary mb-6">Thanks! You're on the list.</p>
+            ) : (
+              <form className="flex flex-col gap-2 mb-6" onSubmit={handleNewsletterSubmit}>
+                <div className="flex gap-2">
+                  <input
+                    type="email"
+                    placeholder="Your email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="flex-1 bg-accent-foreground/5 border border-accent-foreground/10 rounded-md px-3 py-2 text-sm text-accent-foreground placeholder:text-accent-foreground/30 focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="bg-primary text-primary-foreground px-4 py-2 rounded-md font-display tracking-wider text-sm hover:bg-primary/90 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+                  >
+                    {loading ? "..." : "Notify Me"}
+                  </button>
+                </div>
+                {error && <p className="text-xs text-destructive">{error}</p>}
+              </form>
+            )}
             <div className="flex gap-4">
               {SOCIAL_LINKS.map((s) => (
                 <a
