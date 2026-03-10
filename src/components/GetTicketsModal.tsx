@@ -16,7 +16,7 @@ export function GetTicketsModal({ open, onOpenChange }: Props) {
       <DialogContent className="bg-accent text-accent-foreground border-primary/20 max-w-md">
         <DialogHeader>
           <DialogTitle className="font-display text-3xl tracking-wider text-primary">
-            GET TICKETS
+            GET INFO/TICKETS
           </DialogTitle>
         </DialogHeader>
 
@@ -30,17 +30,17 @@ export function GetTicketsModal({ open, onOpenChange }: Props) {
               <div className="space-y-1">
                 <div className="flex items-center gap-2 text-sm text-accent-foreground/60">
                   <Calendar className="w-3.5 h-3.5" />
-                  {show.date} · {show.day}
+                  {show.date} · {show.time}
                 </div>
-                <p className="font-display text-lg tracking-wide text-accent-foreground">{show.city}</p>
+                <p className="font-display text-lg tracking-wide text-accent-foreground">{show.venue}</p>
                 <div className="flex items-center gap-1.5 text-xs text-accent-foreground/50">
                   <MapPin className="w-3 h-3" />
-                  {show.venue}
+                  {show.city}
                 </div>
               </div>
               <span className="bg-primary text-primary-foreground px-3 py-1.5 rounded-md font-display text-sm tracking-wider group-hover:bg-primary/80 transition-colors flex items-center gap-1.5">
                 <Ticket className="w-3.5 h-3.5" />
-                BUY
+                INFO
               </span>
             </a>
           ))}

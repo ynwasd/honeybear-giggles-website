@@ -49,7 +49,7 @@ export function Header() {
               className="bg-primary hover:bg-primary/90 text-primary-foreground font-display tracking-wider text-sm"
             >
               <Ticket className="w-4 h-4 mr-1.5" />
-              GET TICKETS
+              GET INFO/TICKETS
             </Button>
             <button
               className="md:hidden text-accent-foreground"

@@ -182,10 +182,11 @@ const Index = () => {
                   <div className="flex items-center gap-4 sm:gap-6">
                     <div className="text-center min-w-[60px]">
                       <span className="font-display text-lg text-primary tracking-wider">{show.date}</span>
+                      <p className="text-[10px] text-accent-foreground/40 uppercase">{show.time}</p>
                     </div>
                     <div>
-                      <p className="font-display text-lg tracking-wide text-accent-foreground">{show.city}</p>
-                      <p className="text-xs text-accent-foreground/50">{show.venue}</p>
+                      <p className="font-display text-lg tracking-wide text-accent-foreground">{show.venue}</p>
+                      <p className="text-xs text-accent-foreground/50">{show.city}</p>
                     </div>
                   </div>
                   <a
@@ -193,7 +194,7 @@ const Index = () => {
                     className="bg-primary text-primary-foreground px-4 py-2 rounded-md font-display text-xs tracking-widest hover:bg-primary/80 transition-all hover:scale-105 flex items-center gap-1.5 shrink-0"
                   >
                     <Ticket className="w-3.5 h-3.5" />
-                    TICKETS
+                    GET INFO/TICKETS
                   </a>
                 </motion.div>
               ))}

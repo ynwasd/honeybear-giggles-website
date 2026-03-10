@@ -5,6 +5,7 @@ export interface TourDate {
   id: string;
   date: string;
   day: string;
+  time: string;
   city: string;
   venue: string;
   ticketUrl: string;
@@ -59,14 +60,14 @@ export const ANNOUNCEMENT = {
 };
 
 export const TOUR_DATES: TourDate[] = [
-  { id: "1", date: "Feb 28", day: "Saturday", city: "Austin, TX", venue: "Fatman Club", ticketUrl: "#", soldOut: false, month: "February" },
-  { id: "2", date: "Mar 21", day: "Friday", city: "Denver, CO", venue: "Bellco Theatre", ticketUrl: "#", soldOut: false, month: "March" },
-  { id: "3", date: "Mar 28", day: "Friday", city: "Nashville, TN", venue: "Ryman Auditorium", ticketUrl: "#", soldOut: false, month: "March" },
-  { id: "4", date: "Apr 4", day: "Friday", city: "Chicago, IL", venue: "Chicago Theatre", ticketUrl: "#", soldOut: true, month: "April" },
-  { id: "5", date: "Apr 11", day: "Friday", city: "New York, NY", venue: "Beacon Theatre", ticketUrl: "#", soldOut: false, month: "April" },
-  { id: "6", date: "Apr 18", day: "Friday", city: "Los Angeles, CA", venue: "The Wiltern", ticketUrl: "#", soldOut: false, month: "April" },
-  { id: "7", date: "May 2", day: "Friday", city: "Portland, OR", venue: "Arlene Schnitzer Hall", ticketUrl: "#", soldOut: false, month: "May" },
-  { id: "8", date: "May 9", day: "Friday", city: "Seattle, WA", venue: "Moore Theatre", ticketUrl: "#", soldOut: false, month: "May" },
+  { id: "1", date: "Feb 28", day: "Saturday", time: "—", city: "Austin, TX", venue: "Fatman Club", ticketUrl: "#", soldOut: false, month: "February" },
+  { id: "2", date: "Mar 11", day: "Tuesday", time: "7 PM", city: "San Diego, CA", venue: "The Collective in PB", ticketUrl: "https://www.eventbrite.com/cc/upcoming-stand-up-comedy-shows-4794782", soldOut: false, month: "March" },
+  { id: "3", date: "Mar 28", day: "Friday", time: "—", city: "Nashville, TN", venue: "Ryman Auditorium", ticketUrl: "#", soldOut: false, month: "March" },
+  { id: "4", date: "Apr 4", day: "Friday", time: "—", city: "Chicago, IL", venue: "Chicago Theatre", ticketUrl: "#", soldOut: true, month: "April" },
+  { id: "5", date: "Apr 11", day: "Friday", time: "—", city: "New York, NY", venue: "Beacon Theatre", ticketUrl: "#", soldOut: false, month: "April" },
+  { id: "6", date: "Apr 18", day: "Friday", time: "—", city: "Los Angeles, CA", venue: "The Wiltern", ticketUrl: "#", soldOut: false, month: "April" },
+  { id: "7", date: "May 2", day: "Friday", time: "—", city: "Portland, OR", venue: "Arlene Schnitzer Hall", ticketUrl: "#", soldOut: false, month: "May" },
+  { id: "8", date: "May 9", day: "Friday", time: "—", city: "Seattle, WA", venue: "Moore Theatre", ticketUrl: "#", soldOut: false, month: "May" },
 ];
 
 export const MERCH_ITEMS: MerchItem[] = [
